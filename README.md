@@ -2,6 +2,10 @@
 
 **AI-powered spiritual content pipeline for Instagram reels -- zero cost, fully automated.**
 
+<p align="center">
+  <img src="docs/archana-reels-card.png" alt="Archana Reels card" width="500" />
+</p>
+
 Archana Reels generates ready-to-post Instagram reels from Hindu spiritual content. Give it a content type (panchang, rashifal, temple, pooja, navgrah, mythology), and it produces a complete video with Hindi script, AI-generated backgrounds, text-to-speech narration, and animated scene compositions.
 
 Built as the content engine for [myarchana.in](https://myarchana.in).
