@@ -76,8 +76,9 @@ def generate(script_path: str) -> dict:
     seg_wavs, timings, cursor = [], [], 0.0
     for seg in spec["segments"]:
         wav = os.path.join(OUT_DIR, f"{seg['id']}.wav")
-        print(f"  voicing [{seg['id']}] …")
-        _tts(seg["voice_hi"], speaker, pace, pitch, wav)
+        seg_pace = float(seg.get("pace", pace))
+        print(f"  voicing [{seg['id']}] (pace {seg_pace}) …")
+        _tts(seg["voice_hi"], speaker, seg_pace, pitch, wav)
         dur = _duration(wav)
         seg_wavs.append(wav)
         timings.append({"id": seg["id"], "start": round(cursor, 3), "end": round(cursor + dur, 3),

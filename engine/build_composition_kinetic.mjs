@@ -40,37 +40,52 @@ const clipFor = (id) => {
 const segs = timings.segments.map((t, i) => ({ ...t, idx: i, clip: clipFor(t.id) }));
 const total = timings.total;
 
-// ── One video per segment (proven media load), kinetic energy via jump-zooms ──
-// Within each segment the wrapper jump-cuts between zoom levels with a white
-// flash on every jump — reads as hard cuts without extra media elements.
-const videoEls = segs
+// ── Visual shots: in stills mode a segment may carry several images
+// (spec.segments[].images) so each spoken beat gets its own matching visual.
+// Each shot = one media element; shot boundaries cut with a white flash.
+const shots = [];
+segs.forEach((s, i) => {
+  const start0 = i === 0 ? 0 : s.start;
+  const segEnd = i < segs.length - 1 ? segs[i + 1].start : total;
+  const specSeg = spec.segments.find((x) => x.id === s.id);
+  const media = STILLS ? (specSeg?.images ?? [specSeg?.image]).filter(Boolean) : [s.clip];
+  const per = (segEnd - start0) / media.length;
+  media.forEach((clip, k) => {
+    shots.push({
+      id: `${s.id}-${k}`,
+      isCta: s.id === "cta",
+      clip,
+      start: start0 + k * per,
+      end: start0 + (k + 1) * per,
+      first: i === 0 && k === 0,
+    });
+  });
+});
+
+const videoEls = shots
   .map((s, i) => {
     const track = i % 2;
-    const start = i === 0 ? 0 : s.start;
-    const segEnd = i < segs.length - 1 ? segs[i + 1].start : total;
-    const dur = segEnd - start;
+    const dur = s.end - s.start;
     const media = STILLS
-      ? `<img class="bv" id="v-${s.id}" data-start="${start.toFixed(2)}" data-duration="${dur.toFixed(2)}" data-track-index="${track}" src="stills/${s.clip}">`
-      : `<video class="bv" id="v-${s.id}" data-start="${start.toFixed(2)}" data-duration="${dur.toFixed(2)}" data-track-index="${track}" src="broll/${s.clip}" muted playsinline></video>`;
-    return `      <div class="bw" id="w-${s.id}" style="z-index: ${i + 1}; opacity: ${i === 0 ? 1 : 0};">
+      ? `<img class="bv" id="v-${s.id}" data-start="${s.start.toFixed(2)}" data-duration="${dur.toFixed(2)}" data-track-index="${track}" src="stills/${s.clip}">`
+      : `<video class="bv" id="v-${s.id}" data-start="${s.start.toFixed(2)}" data-duration="${dur.toFixed(2)}" data-track-index="${track}" src="broll/${s.clip}" muted playsinline></video>`;
+    return `      <div class="bw" id="w-${s.id}" style="z-index: ${i + 1}; opacity: ${s.first ? 1 : 0};">
         ${media}
       </div>`;
   })
   .join("\n");
 
-// Jump-zoom choreography: each segment splits into 1-3 movements; every internal
-// boundary gets an instant scale/rotation jump + flash. Segment changes flash too.
-const shotTl = segs
-  .map((s, i) => {
-    const segEnd = i < segs.length - 1 ? segs[i + 1].start : total;
-    const D = segEnd - s.start;
-    const isCta = s.id === "cta";
-    const n = isCta ? 1 : s.id === "hook" ? 3 : D > 4.4 ? 3 : D > 2.2 ? 2 : 1;
+// Jump-zoom choreography: each shot splits into 1-3 movements; every internal
+// boundary gets an instant scale/rotation jump + flash. Shot changes flash too.
+const shotTl = shots
+  .map((s) => {
+    const D = s.end - s.start;
+    const n = s.isCta ? 1 : D > 4.4 ? 3 : D > 2.2 ? 2 : 1;
     const part = D / n;
     const lines = [];
-    if (i > 0) {
+    if (!s.first) {
       lines.push(`        tl.set("#w-${s.id}", { opacity: 1 }, ${s.start.toFixed(2)});`);
-      lines.push(`        tl.fromTo("#flash", { opacity: 0.85 }, { opacity: 0, duration: 0.14, ease: "power2.out" }, ${s.start.toFixed(2)});`);
+      lines.push(`        tl.fromTo("#flash", { opacity: 0.85 }, { opacity: 0, duration: 0.14, ease: "power2.out", immediateRender: false }, ${s.start.toFixed(2)});`);
     }
     // zoom movement plan per part: [from, to, rotFrom, xFrom]
     const plans = [
@@ -80,9 +95,9 @@ const shotTl = segs
     ];
     for (let k = 0; k < n; k++) {
       const t0 = s.start + k * part;
-      const [from, to, rot, x] = isCta ? [1.0, 1.07, 0, 0] : plans[k % plans.length];
+      const [from, to, rot, x] = s.isCta ? [1.0, 1.07, 0, 0] : plans[k % plans.length];
       if (k > 0) {
-        lines.push(`        tl.fromTo("#flash", { opacity: 0.85 }, { opacity: 0, duration: 0.12, ease: "power2.out" }, ${t0.toFixed(2)});`);
+        lines.push(`        tl.fromTo("#flash", { opacity: 0.85 }, { opacity: 0, duration: 0.12, ease: "power2.out", immediateRender: false }, ${t0.toFixed(2)});`);
       }
       lines.push(
         `        tl.fromTo("#w-${s.id}", { scale: ${from}, rotation: ${rot}, xPercent: ${x} }, { scale: ${to}, rotation: 0, xPercent: 0, duration: ${part.toFixed(2)}, ease: "power1.out" }, ${t0.toFixed(2)});`
@@ -149,7 +164,7 @@ ${videoEls}
       </div>
       <div class="bf" id="bf"><div class="big">myarchana.in</div><div class="sub">${brandFinalSub}</div></div>
       <audio id="vo" data-start="0" data-duration="${total.toFixed(2)}" data-track-index="2" src="voice/voiceover.mp3" data-volume="1"></audio>
-      <audio id="mus" data-start="0" data-duration="${total.toFixed(2)}" data-track-index="3" src="music.mp3" data-volume="0.3"></audio>
+      <audio id="mus" data-start="0" data-duration="${total.toFixed(2)}" data-track-index="3" src="music.mp3" data-volume="0.42"></audio>
       <audio id="bell" data-start="0.05" data-track-index="4" src="sfx_bell.mp3" data-volume="0.55"></audio>
 
       <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
@@ -178,6 +193,7 @@ ${videoEls}
 
         window.__timelines = window.__timelines || {};
         const tl = gsap.timeline({ paused: true });
+        tl.set("#flash", { opacity: 0 }, 0);
 ${shotTl}
         capEls.forEach(({ el, t0, t1, isFirst }) => {
           if (isFirst) {

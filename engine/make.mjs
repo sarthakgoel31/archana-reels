@@ -5,7 +5,7 @@
 // Usage: node engine/make.mjs <spec.json> --out <name> [--primary #..] [--accent #..] [--bg #..]
 //                              [--jobs-file <path> --job-id <id>]   (optional: live job updates)
 import { spawn } from "node:child_process";
-import { readFileSync, writeFileSync, existsSync } from "node:fs";
+import { readFileSync, writeFileSync, existsSync, unlinkSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -45,8 +45,11 @@ async function main() {
     updateJob({ status: "voicing", step: "Sarvam voiceover" });
     await run(PY, ["engine/voice_sarvam.py", spec]);
 
-    // MPT-borrowed: word-align captions to the spoken voiceover (precise sync)
+    // MPT-borrowed: word-align captions to the spoken voiceover (precise sync).
+    // Purge any previous alignment FIRST — a stale file from another script would
+    // burn that script's captions onto this reel if alignment fails.
     updateJob({ step: "aligning captions" });
+    try { unlinkSync(path.join(ROOT, "engine/voice/caption_timings.json")); } catch {}
     try { await run(PY, ["engine/align_captions.py"]); }
     catch (e) { console.log("  caption align skipped:", e.message); }
 
