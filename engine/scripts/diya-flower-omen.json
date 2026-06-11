@@ -1,0 +1,39 @@
+{
+  "type": "gyaan",
+  "lang": "hi-IN",
+  "title": "Flower in the diya flame — omen-decoding hook (4.7M-view pattern)",
+  "treatment": "kinetic",
+  "stills": true,
+  "voice": { "speaker": "vidya", "pace": 1.0, "pitch": 0 },
+  "music": { "mood": "soft bhajan instrumental", "duck_db": -14 },
+  "segments": [
+    {
+      "id": "hook",
+      "role": "hook",
+      "voice_hi": "अगर दीये की बत्ती पर फूल जैसा बनता है — तो रुकिए। ये कोई आम बात नहीं है।",
+      "captions": ["दीये में फूल?", "रुकिए।", "ये आम बात नहीं"],
+      "image": "still_hook.jpg"
+    },
+    {
+      "id": "build",
+      "role": "gyaan",
+      "voice_hi": "शास्त्र कहते हैं — बत्ती पर फूल बनना शुभ संकेत है। मतलब आपकी पूजा स्वीकार हो रही है, और लक्ष्मी का आगमन निकट है।",
+      "captions": ["शुभ संकेत 🪔", "पूजा स्वीकार हो रही है", "लक्ष्मी का आगमन"],
+      "image": "still_build.jpg"
+    },
+    {
+      "id": "value",
+      "role": "twist",
+      "voice_hi": "और उस दिन एक काम ज़रूर करना — उसी दीये के सामने अपनी सबसे ज़रूरी इच्छा, सिर्फ़ एक बार बोलना।",
+      "captions": ["उस दिन", "एक इच्छा", "सिर्फ़ एक बार"],
+      "image": "still_value.jpg"
+    },
+    {
+      "id": "cta",
+      "role": "cta",
+      "voice_hi": "सेव कर लो — अगली बार फूल दिखे तो याद आएगा। और असली मंदिर में दीया अपने नाम से — माय अर्चना डॉट इन।",
+      "captions": ["Save कर लो", "असली मंदिर में, आपके नाम से"],
+      "image": "still_cta.jpg"
+    }
+  ]
+}

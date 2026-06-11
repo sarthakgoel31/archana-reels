@@ -22,8 +22,9 @@ const ACCENT = arg("accent", "#F4D58D");
 const BG = arg("bg", "#0d0a05");
 
 const spec = JSON.parse(readFileSync(specPath, "utf8"));
+const STILLS = !!spec.stills;
 const timings = JSON.parse(readFileSync(path.join(__dirname, "voice/timings.json"), "utf8"));
-const manifest = JSON.parse(readFileSync(path.join(__dirname, "broll/manifest.json"), "utf8"));
+const manifest = STILLS ? null : JSON.parse(readFileSync(path.join(__dirname, "broll/manifest.json"), "utf8"));
 const fonts = readFileSync(path.join(__dirname, "fonts.css"), "utf8");
 let alignedCaps = null;
 try {
@@ -31,6 +32,7 @@ try {
 } catch {}
 
 const clipFor = (id) => {
+  if (STILLS) return spec.segments.find((s) => s.id === id)?.image ?? null;
   const m = manifest.clips.find((c) => c.id === id);
   return m?.clip ? path.basename(m.clip) : null;
 };
@@ -47,8 +49,11 @@ const videoEls = segs
     const start = i === 0 ? 0 : s.start;
     const segEnd = i < segs.length - 1 ? segs[i + 1].start : total;
     const dur = segEnd - start;
+    const media = STILLS
+      ? `<img class="bv" id="v-${s.id}" data-start="${start.toFixed(2)}" data-duration="${dur.toFixed(2)}" data-track-index="${track}" src="stills/${s.clip}">`
+      : `<video class="bv" id="v-${s.id}" data-start="${start.toFixed(2)}" data-duration="${dur.toFixed(2)}" data-track-index="${track}" src="broll/${s.clip}" muted playsinline></video>`;
     return `      <div class="bw" id="w-${s.id}" style="z-index: ${i + 1}; opacity: ${i === 0 ? 1 : 0};">
-        <video class="bv" id="v-${s.id}" data-start="${start.toFixed(2)}" data-duration="${dur.toFixed(2)}" data-track-index="${track}" src="broll/${s.clip}" muted playsinline></video>
+        ${media}
       </div>`;
   })
   .join("\n");

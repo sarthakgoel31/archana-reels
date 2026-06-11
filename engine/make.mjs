@@ -50,24 +50,26 @@ async function main() {
     try { await run(PY, ["engine/align_captions.py"]); }
     catch (e) { console.log("  caption align skipped:", e.message); }
 
-    updateJob({ status: "broll", step: "Pexels footage" });
-    await run(PY, ["engine/broll_pexels.py", spec]);
+    const specObj = JSON.parse(readFileSync(path.resolve(ROOT, spec), "utf8"));
+    if (!specObj.stills) {
+      updateJob({ status: "broll", step: "Pexels footage" });
+      await run(PY, ["engine/broll_pexels.py", spec]);
 
-    // dense-keyframe re-encode for smooth motion (+ trim long clips)
-    updateJob({ step: "optimizing footage" });
-    const manifest = JSON.parse(readFileSync(path.join(ROOT, "engine/broll/manifest.json"), "utf8"));
-    for (const c of manifest.clips) {
-      if (!c.clip) continue;
-      const f = path.join(ROOT, c.clip);
-      const tmp = f.replace(/\.mp4$/, "_kf.mp4");
-      await run("ffmpeg", ["-y", "-i", f, "-t", "16", "-c:v", "libx264", "-r", "30", "-g", "30",
-        "-keyint_min", "30", "-crf", "21", "-pix_fmt", "yuv420p", "-an", "-movflags", "+faststart", tmp],
-        { stdio: "ignore" });
-      await run("mv", [tmp, f], { stdio: "ignore" });
+      // dense-keyframe re-encode for smooth motion (+ trim long clips)
+      updateJob({ step: "optimizing footage" });
+      const manifest = JSON.parse(readFileSync(path.join(ROOT, "engine/broll/manifest.json"), "utf8"));
+      for (const c of manifest.clips) {
+        if (!c.clip) continue;
+        const f = path.join(ROOT, c.clip);
+        const tmp = f.replace(/\.mp4$/, "_kf.mp4");
+        await run("ffmpeg", ["-y", "-i", f, "-t", "16", "-c:v", "libx264", "-r", "30", "-g", "30",
+          "-keyint_min", "30", "-crf", "21", "-pix_fmt", "yuv420p", "-an", "-movflags", "+faststart", tmp],
+          { stdio: "ignore" });
+        await run("mv", [tmp, f], { stdio: "ignore" });
+      }
     }
 
     updateJob({ status: "rendering", step: "composing + rendering" });
-    const specObj = JSON.parse(readFileSync(path.resolve(ROOT, spec), "utf8"));
     const generator = specObj.treatment === "kinetic"
       ? "engine/build_composition_kinetic.mjs"
       : "engine/build_composition.mjs";
