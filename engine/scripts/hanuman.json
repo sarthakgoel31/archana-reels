@@ -1,0 +1,61 @@
+{
+  "type": "mythology",
+  "style": "epic-illustrated",
+  "lang": "hi-IN",
+  "title": "Hanuman — Sanjeevani Parvat",
+  "concept": "Reference-grade epic: one grand illustration per beat, a single gold flash-word per beat, beat-locked flash cuts. Dramatic retelling of Hanuman lifting the whole Dronagiri mountain → devotional payoff → soft Archana CTA.",
+  "voice": { "speaker": "karun", "pace": 0.92, "pitch": 0, "style": "deep, dramatic, devotional male narrator" },
+  "music": { "mood": "epic devotional tension, taiko + strings, rises to climax", "duck_db": -14 },
+  "art_style": "vibrant devotional Hindu mythology poster art, deities as RADIANT divine beings (Lord Hanuman as golden vanara with halo + crown + tail, Lord Rama blue-skinned), bright saturated jewel colors, luminous HIGH-KEY lighting (NOT dark, NOT moody), glowing divine aura, ornate gold, clean ultra sharp, bold single subject filling frame, intense expressive emotion, god rays, larger-than-life, eye-catching, 9:16 vertical, no text",
+  "art_direction_note": "LESSON: dark/deep-shadow/cinematic-painterly = muted arthouse = WRONG for devotional. Audience wants BRIGHT, VIBRANT, GODLY, clear, emotional, catchy (calendar-art energy). Always say 'Lord Hanuman/Rama' + divine + bright, never 'dark'.",
+  "segments": [
+    {
+      "id": "hook",
+      "role": "hook",
+      "voice_hi": "रात का आख़िरी पहर — और लक्ष्मण की साँसें थम रही थीं।",
+      "captions": ["लक्ष्मण"],
+      "flash": true,
+      "illustration_prompt": "Lakshmana lying mortally wounded on a dark battlefield at night, Rama kneeling over him in grief and torchlight, vast army silhouettes behind, embers in the air"
+    },
+    {
+      "id": "setup",
+      "role": "build",
+      "voice_hi": "सूरज उगने से पहले अगर संजीवनी बूटी न मिली — तो सब ख़त्म।",
+      "captions": ["संजीवनी"],
+      "flash": true,
+      "illustration_prompt": "a single glowing magical sanjeevani herb radiating golden light on a dark Himalayan mountainside, mist, sacred glow, dramatic"
+    },
+    {
+      "id": "rise",
+      "role": "build",
+      "voice_hi": "हनुमान पर्वत तक पहुँचे — पर बूटी पहचानना नामुमकिन था।",
+      "captions": ["पर्वत"],
+      "flash": true,
+      "illustration_prompt": "Hanuman standing on a towering moonlit Himalayan mountain peak at night, countless glowing herbs scattered everywhere, confused determined expression, cape of clouds, vast scale"
+    },
+    {
+      "id": "climax",
+      "role": "value",
+      "voice_hi": "तो बजरंगबली ने पूरा का पूरा पर्वत — उठा लिया।",
+      "captions": ["उठा लिया"],
+      "flash": true,
+      "illustration_prompt": "colossal Hanuman lifting an entire glowing Himalayan mountain over his head with one hand, flying through a stormy night sky, moonlight, god rays bursting, embers, epic larger-than-life heroic pose"
+    },
+    {
+      "id": "payoff",
+      "role": "value",
+      "voice_hi": "सूरज उगा भी नहीं — और लक्ष्मण को जीवन मिल गया। ये है भक्ति की शक्ति।",
+      "captions": ["भक्ति"],
+      "flash": true,
+      "illustration_prompt": "Lakshmana awakening healed in golden dawn light, Rama embracing Hanuman with tears of gratitude, warm sunrise rays, divine glow, emotional"
+    },
+    {
+      "id": "cta",
+      "role": "cta",
+      "voice_hi": "ऐसी ही हनुमान कृपा अपने नाम से पाना चाहते हो — तो एक बार माय अर्चना डॉट इन देख लेना।",
+      "captions": ["हनुमान कृपा"],
+      "flash": true,
+      "illustration_prompt": "majestic serene portrait of Hanuman glowing with divine golden aura against a temple at sunrise, calm powerful, devotional, rays of light"
+    }
+  ]
+}

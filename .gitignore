@@ -16,3 +16,11 @@ output/
 
 # OS
 .DS_Store
+
+# Engine generated artifacts
+engine/index.html
+engine/broll/
+engine/voice/
+engine/out/
+engine/test3s/
+!engine/sfx_bell.mp3

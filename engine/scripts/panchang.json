@@ -1,0 +1,45 @@
+{
+  "type": "panchang",
+  "date": "2026-06-04",
+  "lang": "hi-IN",
+  "title": "Aaj Budhwar — Ganesh ji ka din",
+  "concept": "Not a calendar read-out. A pattern-interrupt hook → one specific, emotional micro-ritual → soft Archana CTA. The panchang facts are demoted to on-screen supporting text, never the spoken focus.",
+  "voice": { "speaker": "vidya", "pace": 0.95, "pitch": 0, "style": "warm, devotional, unhurried" },
+  "music": { "mood": "calm devotional, low under voice", "duck_db": -16 },
+  "segments": [
+    {
+      "id": "hook",
+      "role": "hook",
+      "voice_hi": "रुको — आज घर से निकलने से पहले ये एक काम ज़रूर करना।",
+      "captions": ["रुको…", "घर से निकलने से पहले", "ये एक काम करना"],
+      "broll": { "query": "lighting diya oil lamp temple slow motion", "fallback": "indian temple aarti flame", "motion": "slow-push-in" },
+      "duration_hint": 2.6
+    },
+    {
+      "id": "build",
+      "role": "build",
+      "voice_hi": "आज बुधवार है — गणेश जी का दिन। और आज त्रयोदशी तिथि है, जो हर रुकावट हटाने के लिए सबसे शुभ मानी जाती है।",
+      "captions": ["आज बुधवार", "गणेश जी का दिन", "तिथि — त्रयोदशी", "हर रुकावट के लिए शुभ"],
+      "broll": { "query": "ganesha idol temple incense smoke", "fallback": "hindu temple deity garland", "motion": "parallax-drift" },
+      "supporting_panchang": ["दिन: बुधवार", "तिथि: त्रयोदशी", "नक्षत्र: ज्येष्ठा", "पक्ष: शुक्ल"],
+      "duration_hint": 6.5
+    },
+    {
+      "id": "value",
+      "role": "value",
+      "voice_hi": "बस इतना करो — स्नान के बाद गणेश जी को दूर्वा की पाँच पत्तियाँ चढ़ाओ, और मन में अपनी एक रुकी हुई इच्छा बोलो। कहते हैं आज की ये छोटी अर्चना बड़े से बड़ा विघ्न दूर कर देती है।",
+      "captions": ["स्नान के बाद", "दूर्वा की पाँच पत्तियाँ", "मन में एक इच्छा बोलो", "हर विघ्न दूर"],
+      "broll": { "query": "hands offering flowers leaves to deity closeup", "fallback": "puja thali flowers hands closeup", "motion": "gentle-ken-burns" },
+      "duration_hint": 9.5
+    },
+    {
+      "id": "cta",
+      "role": "cta",
+      "voice_hi": "और अगर चाहो ये अर्चना किसी असली मंदिर में, तुम्हारे नाम से हो — तो एक बार माय अर्चना डॉट इन देख लेना।",
+      "captions": ["असली मंदिर में", "तुम्हारे नाम से", "myarchana.in"],
+      "broll": { "query": "indian temple golden hour wide serene", "fallback": "temple sunrise peaceful", "motion": "slow-rise" },
+      "brand": true,
+      "duration_hint": 4.2
+    }
+  ]
+}

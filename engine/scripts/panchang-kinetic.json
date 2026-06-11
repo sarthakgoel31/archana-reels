@@ -1,0 +1,38 @@
+{
+  "type": "panchang",
+  "lang": "hi-IN",
+  "title": "Aaj ki raat — kinetic v4",
+  "treatment": "kinetic",
+  "voice": { "speaker": "vidya", "pace": 1.05, "pitch": 0 },
+  "music": { "mood": "devotional pulse", "duck_db": -14 },
+  "segments": [
+    {
+      "id": "hook",
+      "role": "hook",
+      "voice_hi": "रुको। आज की रात को ऐसे ही मत जाने देना।",
+      "captions": ["रुको।", "आज की रात", "ऐसे ही मत जाने देना"],
+      "broll": { "query": "hands lighting diya oil lamp dark closeup cinematic", "fallback": "candle lighting hands dark", "motion": "hard-zoom" }
+    },
+    {
+      "id": "build",
+      "role": "build",
+      "voice_hi": "कहते हैं — कुछ रातें ऐसी होती हैं, जब माँगी हुई बात ख़ाली नहीं जाती। और आज वैसी ही रात है।",
+      "captions": ["कुछ रातें ख़ास होती हैं", "माँगी हुई बात", "ख़ाली नहीं जाती", "आज वैसी ही रात है"],
+      "broll": { "query": "golden temple sunrise bright dramatic india", "fallback": "indian temple golden hour bright", "motion": "hard-zoom" }
+    },
+    {
+      "id": "value",
+      "role": "value",
+      "voice_hi": "बस सोने से पहले एक दीया जलाओ — और मन में अपनी सबसे ज़रूरी इच्छा, सिर्फ़ एक बार बोलो।",
+      "captions": ["सोने से पहले", "एक दीया जलाओ", "सबसे ज़रूरी इच्छा", "सिर्फ़ एक बार बोलो"],
+      "broll": { "query": "indian woman praying diya candle light face glow warm", "fallback": "woman praying candle face closeup", "motion": "hard-zoom" }
+    },
+    {
+      "id": "cta",
+      "role": "cta",
+      "voice_hi": "और अगर ये अर्चना किसी असली मंदिर में, तुम्हारे नाम से करवानी हो — तो माय अर्चना डॉट इन।",
+      "captions": ["असली मंदिर में", "तुम्हारे नाम से"],
+      "broll": { "query": "indian temple golden hour wide serene", "fallback": "temple sunrise peaceful", "motion": "slow-rise" }
+    }
+  ]
+}
