@@ -48,7 +48,9 @@ segs.forEach((s, i) => {
   const start0 = i === 0 ? 0 : s.start;
   const segEnd = i < segs.length - 1 ? segs[i + 1].start : total;
   const specSeg = spec.segments.find((x) => x.id === s.id);
-  const media = STILLS ? (specSeg?.images ?? [specSeg?.image]).filter(Boolean) : [s.clip];
+  const media = STILLS
+    ? (specSeg?.images ?? [specSeg?.image]).filter(Boolean)
+    : (specSeg?.clips ?? [s.clip]).filter(Boolean);
   const per = (segEnd - start0) / media.length;
   media.forEach((clip, k) => {
     shots.push({

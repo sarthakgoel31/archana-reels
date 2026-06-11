@@ -1,0 +1,40 @@
+{
+  "type": "gyaan",
+  "lang": "hi-IN",
+  "title": "Diya wick direction — v4, Higgsfield i2v clips of the same lady",
+  "treatment": "kinetic",
+  "localBroll": true,
+  "voice": { "speaker": "vidya", "pace": 1.0, "pitch": 0 },
+  "music": { "mood": "soft bhajan instrumental", "duck_db": -14 },
+  "segments": [
+    {
+      "id": "hook",
+      "role": "hook",
+      "voice_hi": "दीया जलाते वक़्त बत्ती का मुँह किस तरफ़ रखते हो? ज़्यादातर लोग ग़लत रखते हैं।",
+      "captions": ["बत्ती का मुँह", "किस तरफ़?", "ज़्यादातर लोग ग़लत रखते हैं"],
+      "pace": 0.88,
+      "clips": ["hook.mp4"]
+    },
+    {
+      "id": "build",
+      "role": "gyaan",
+      "voice_hi": "नियम सीधा है। अगर कोई कामना माँग रहे हो — बत्ती का मुँह अपनी ओर। और अगर बस भगवान को रिझाना है — बत्ती का मुँह भगवान की ओर।",
+      "captions": ["कामना है?", "बत्ती अपनी ओर", "सिर्फ़ भक्ति?", "बत्ती भगवान की ओर"],
+      "clips": ["wick_self.mp4", "wick_god.mp4"]
+    },
+    {
+      "id": "value",
+      "role": "twist",
+      "voice_hi": "क्योंकि भगवान की ओर बत्ती का मतलब है — मेरा घर, मेरा परिवार, सब तेरे भरोसे। यही छोटी सी बात सब बदल देती है।",
+      "captions": ["मतलब —", "सब तेरे भरोसे", "छोटी बात, बड़ा फ़र्क़"],
+      "clips": ["value.mp4"]
+    },
+    {
+      "id": "cta",
+      "role": "cta",
+      "voice_hi": "सेव कर लो — आज शाम याद आएगा। और असली मंदिर में अपने नाम का दीया जलवाना हो — माय अर्चना डॉट इन।",
+      "captions": ["Save कर लो 🪔", "असली मंदिर में, आपके नाम से"],
+      "clips": ["cta.mp4"]
+    }
+  ]
+}

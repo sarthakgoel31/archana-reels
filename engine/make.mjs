@@ -55,8 +55,12 @@ async function main() {
 
     const specObj = JSON.parse(readFileSync(path.resolve(ROOT, spec), "utf8"));
     if (!specObj.stills) {
-      updateJob({ status: "broll", step: "Pexels footage" });
-      await run(PY, ["engine/broll_pexels.py", spec]);
+      // localBroll: clips already in engine/broll/ (e.g. Higgsfield i2v) with a
+      // hand-written manifest.json — skip the Pexels fetch, keep the re-encode.
+      if (!specObj.localBroll) {
+        updateJob({ status: "broll", step: "Pexels footage" });
+        await run(PY, ["engine/broll_pexels.py", spec]);
+      }
 
       // dense-keyframe re-encode for smooth motion (+ trim long clips)
       updateJob({ step: "optimizing footage" });
